@@ -53,7 +53,7 @@ public class Simplex extends Application {
 		}
 
 		App.runLater(() -> {
-			initStage(1000, 900, true, "favicon.png");
+			initStage(1000, 900, "favicon.png");
 			setScene(new UserInterface()).show();
 		});
 
