@@ -32,7 +32,7 @@ import net.smoofyuniverse.simplex.ui.UserInterface;
 import java.util.concurrent.Executors;
 
 public class Simplex extends Application {
-	public static final DependencyInfo FLOW_MATH = new DependencyInfo("com.flowpowered:flow-math:1.0.3", "http://central.maven.org/maven2/com/flowpowered/flow-math/1.0.3/flow-math-1.0.3.jar", 167837, "d98020239e5015091ad3be927cef9dea0d61a234", "sha1"),
+	public static final DependencyInfo FLOW_MATH = new DependencyInfo("com.flowpowered:flow-math:1.0.3", "https://repo1.maven.org/maven2/com/flowpowered/flow-math/1.0.3/flow-math-1.0.3.jar", 167837, "d98020239e5015091ad3be927cef9dea0d61a234", "sha1"),
 			FLOW_NOISE = new DependencyInfo("com.flowpowered:flow-noise:1.0.1-SNAPSHOT", "https://repo.spongepowered.org/maven/com/flowpowered/flow-noise/1.0.1-SNAPSHOT/flow-noise-1.0.1-20150609.030116-1.jar", 68228, "bfddff85287441521fb66ec22b59a463190966e1", "sha1");
 
 	public Simplex(Arguments args) {
