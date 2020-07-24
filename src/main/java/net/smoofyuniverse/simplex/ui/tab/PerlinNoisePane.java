@@ -36,13 +36,13 @@ import net.smoofyuniverse.simplex.ui.UserInterface;
 public class PerlinNoisePane extends StackPane {
 	private final UserInterface ui;
 
-	private ImageView view = new ImageView();
+	private final ImageView view = new ImageView();
 
-	private Perlin perlin = new Perlin();
+	private final Perlin perlin = new Perlin();
 	private double min = Double.MAX_VALUE, max = Double.MIN_VALUE;
 	private long currentTime = 0;
 
-	private Task task = new Task();
+	private final Task task = new Task();
 
 	public PerlinNoisePane(UserInterface ui) {
 		this.ui = ui;

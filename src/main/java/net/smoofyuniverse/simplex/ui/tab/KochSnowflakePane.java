@@ -32,7 +32,7 @@ import net.smoofyuniverse.simplex.util.PathHelper;
 public class KochSnowflakePane extends StackPane {
 	public static final double PI_OVER_3 = TrigMath.PI / 3;
 
-	private Canvas canvas = new Canvas(600, 600);
+	private final Canvas canvas = new Canvas(600, 600);
 
 	public KochSnowflakePane() {
 		getChildren().add(this.canvas);

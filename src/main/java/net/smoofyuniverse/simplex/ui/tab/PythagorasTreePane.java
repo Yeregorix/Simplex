@@ -42,12 +42,12 @@ import static com.flowpowered.math.TrigMath.DEG_TO_RAD;
 import static net.smoofyuniverse.simplex.generator.PythagorasTree.*;
 
 public class PythagorasTreePane extends GridPane {
-	private Canvas canvas = new Canvas(700, 700);
+	private final Canvas canvas = new Canvas(700, 700);
 
-	private Slider widthFactor = new Slider(MIN_FACTOR, MAX_FACTOR, Math.sqrt(2) / 2), lengthFactor = new Slider(MIN_FACTOR, MAX_FACTOR, Math.sqrt(2) / 2);
-	private Slider leftAngle = new Slider(MIN_ANGLE, MAX_ANGLE, 50 * DEG_TO_RAD), rightAngle = new Slider(MIN_ANGLE, MAX_ANGLE, 40 * DEG_TO_RAD);
-	private Slider initialWidth = new Slider(1, 200, 50), initialLength = new Slider(1, 300, 140);
-	private Slider level = new Slider(0, 18, 15);
+	private final Slider widthFactor = new Slider(MIN_FACTOR, MAX_FACTOR, Math.sqrt(2) / 2), lengthFactor = new Slider(MIN_FACTOR, MAX_FACTOR, Math.sqrt(2) / 2);
+	private final Slider leftAngle = new Slider(MIN_ANGLE, MAX_ANGLE, 50 * DEG_TO_RAD), rightAngle = new Slider(MIN_ANGLE, MAX_ANGLE, 40 * DEG_TO_RAD);
+	private final Slider initialWidth = new Slider(1, 200, 50), initialLength = new Slider(1, 300, 140);
+	private final Slider level = new Slider(0, 18, 15);
 
 	public PythagorasTreePane() {
 		Label widthFactorL = new Label(), lengthFactorL = new Label(), leftAngleL = new Label(), rightAngleL = new Label(),

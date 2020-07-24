@@ -52,13 +52,13 @@ public class MandelbrotSetPane extends GridPane {
 	private static final Logger logger = App.getLogger("MandelbrotSetPane");
 	private final ExecutorService executor = Executors.newCachedThreadPool();
 	private final AutoCancellingListenerSupplier<ObservableProgressTask> taskSupplier = new AutoCancellingListenerSupplier<>(ObservableProgressTask::new);
-	private ImageView view = new ImageView();
-	private ProgressBar progressBar = new ProgressBar();
-	private DoubleField centerX = new DoubleField(-0.75), centerY = new DoubleField(0);
-	private DoubleField scale = new DoubleField(0, 0.1, 0.005);
-	private IntegerField iterations = new IntegerField(1, 50000, 100);
-	private IntegerField threads = new IntegerField(1, 4);
-	private Button colorModeB = new Button("Linéaire");
+	private final ImageView view = new ImageView();
+	private final ProgressBar progressBar = new ProgressBar();
+	private final DoubleField centerX = new DoubleField(-0.75), centerY = new DoubleField(0);
+	private final DoubleField scale = new DoubleField(0, 0.1, 0.005);
+	private final IntegerField iterations = new IntegerField(1, 50000, 100);
+	private final IntegerField threads = new IntegerField(1, 4);
+	private final Button colorModeB = new Button("Linéaire");
 	private int colorMode = 0;
 	private volatile boolean zooming;
 
