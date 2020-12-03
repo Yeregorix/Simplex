@@ -36,11 +36,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import net.smoofyuniverse.common.app.App;
 import net.smoofyuniverse.common.app.State;
-import net.smoofyuniverse.common.event.Order;
 import net.smoofyuniverse.common.fx.field.DoubleField;
 import net.smoofyuniverse.common.fx.field.IntegerField;
 import net.smoofyuniverse.common.fx.task.ObservableProgressTask;
-import net.smoofyuniverse.common.task.impl.AutoCancellingListenerSupplier;
+import net.smoofyuniverse.common.task.supplier.AutoCancellingSupplier;
 import net.smoofyuniverse.common.util.GridUtil;
 import net.smoofyuniverse.logger.core.Logger;
 import net.smoofyuniverse.simplex.generator.MandelbrotSet;
@@ -51,7 +50,7 @@ import java.util.concurrent.Executors;
 public class MandelbrotSetPane extends GridPane {
 	private static final Logger logger = App.getLogger("MandelbrotSetPane");
 	private final ExecutorService executor = Executors.newCachedThreadPool();
-	private final AutoCancellingListenerSupplier<ObservableProgressTask> taskSupplier = new AutoCancellingListenerSupplier<>(ObservableProgressTask::new);
+	private final AutoCancellingSupplier<ObservableProgressTask> taskSupplier = new AutoCancellingSupplier<>(ObservableProgressTask::new);
 	private final ImageView view = new ImageView();
 	private final ProgressBar progressBar = new ProgressBar();
 	private final DoubleField centerX = new DoubleField(-0.75), centerY = new DoubleField(0);
@@ -63,7 +62,7 @@ public class MandelbrotSetPane extends GridPane {
 	private volatile boolean zooming;
 
 	public MandelbrotSetPane() {
-		State.SHUTDOWN.newListener(e -> this.executor.shutdown(), Order.DEFAULT).register();
+		State.SHUTDOWN.newListener(e -> this.executor.shutdown(), 0).register();
 
 		this.progressBar.setMaxWidth(Double.MAX_VALUE);
 		this.colorModeB.setPrefWidth(150);
