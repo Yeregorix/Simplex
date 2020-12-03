@@ -36,7 +36,7 @@ public class Simplex extends Application {
 			FLOW_NOISE = new DependencyInfo("com.flowpowered:flow-noise:1.0.1-SNAPSHOT", "https://repo.spongepowered.org/maven/com/flowpowered/flow-noise/1.0.1-SNAPSHOT/flow-noise-1.0.1-20150609.030116-1.jar", 68228, "bfddff85287441521fb66ec22b59a463190966e1", "sha1");
 
 	public Simplex(Arguments args) {
-		super(args, "Simplex", "1.0.2");
+		super(args, "Simplex", "1.0.3");
 	}
 
 	@Override
