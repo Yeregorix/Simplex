@@ -116,20 +116,9 @@ public class MandelbrotSetPane extends GridPane {
 		add(new StackPane(this.view), 0, 0, 4, 1);
 		add(this.progressBar, 0, 1, 4, 1);
 
-		add(new Label("Centre X:"), 0, 2);
-		add(this.centerX, 1, 2);
-		add(new Label("Centre Y:"), 2, 2);
-		add(this.centerY, 3, 2);
-
-		add(new Label("Echelle:"), 0, 3);
-		add(this.scale, 1, 3);
-		add(new Label("Itérations:"), 2, 3);
-		add(this.iterations, 3, 3);
-
-		add(new Label("Threads:"), 0, 4);
-		add(this.threads, 1, 4);
-		add(new Label("Coloration:"), 2, 4);
-		add(this.colorModeB, 3, 4);
+		addRow(2, new Label("Centre X:"), this.centerX, new Label("Centre Y:"), this.centerY);
+		addRow(3, new Label("Echelle:"), this.scale, new Label("Itérations:"), this.iterations);
+		addRow(4, new Label("Threads:"), this.threads, new Label("Coloration:"), this.colorModeB);
 
 		getColumnConstraints().addAll(GridUtil.createColumn(15), GridUtil.createColumn(35), GridUtil.createColumn(15), GridUtil.createColumn(35));
 		getRowConstraints().addAll(GridUtil.createRow(Priority.ALWAYS), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow());

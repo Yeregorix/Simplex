@@ -71,23 +71,10 @@ public class PythagorasTreePane extends GridPane {
 
 		add(new StackPane(this.canvas), 0, 0, 4, 1);
 
-		add(widthFactorL, 0, 1);
-		add(this.widthFactor, 1, 1);
-		add(lengthFactorL, 2, 1);
-		add(this.lengthFactor, 3, 1);
-
-		add(leftAngleL, 0, 2);
-		add(this.leftAngle, 1, 2);
-		add(rightAngleL, 2, 2);
-		add(this.rightAngle, 3, 2);
-
-		add(initialWidthL, 0, 3);
-		add(this.initialWidth, 1, 3);
-		add(initialLengthL, 2, 3);
-		add(this.initialLength, 3, 3);
-
-		add(levelL, 0, 4);
-		add(this.level, 1, 4);
+		addRow(1, widthFactorL, this.widthFactor, lengthFactorL, this.lengthFactor);
+		addRow(2, leftAngleL, this.leftAngle, rightAngleL, this.rightAngle);
+		addRow(3, initialWidthL, this.initialWidth, initialLengthL, this.initialLength);
+		addRow(4, levelL, this.level);
 
 		getColumnConstraints().addAll(GridUtil.createColumn(15), GridUtil.createColumn(35), GridUtil.createColumn(15), GridUtil.createColumn(35));
 		getRowConstraints().addAll(GridUtil.createRow(Priority.ALWAYS), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow());
