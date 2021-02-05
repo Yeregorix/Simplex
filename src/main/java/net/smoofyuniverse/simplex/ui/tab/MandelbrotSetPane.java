@@ -34,7 +34,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import net.smoofyuniverse.common.app.App;
 import net.smoofyuniverse.common.app.State;
 import net.smoofyuniverse.common.fx.field.DoubleField;
 import net.smoofyuniverse.common.fx.field.IntegerField;
@@ -48,7 +47,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MandelbrotSetPane extends GridPane {
-	private static final Logger logger = App.getLogger("MandelbrotSetPane");
+	private static final Logger logger = Logger.get("MandelbrotSetPane");
 	private final ExecutorService executor = Executors.newCachedThreadPool();
 	private final AutoCancellingSupplier<ObservableProgressTask> taskSupplier = new AutoCancellingSupplier<>(ObservableProgressTask::new);
 	private final ImageView view = new ImageView();

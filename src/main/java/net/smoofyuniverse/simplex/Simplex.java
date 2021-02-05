@@ -22,14 +22,13 @@
 
 package net.smoofyuniverse.simplex;
 
-import net.smoofyuniverse.common.app.App;
 import net.smoofyuniverse.common.app.Application;
 import net.smoofyuniverse.common.app.Arguments;
+import net.smoofyuniverse.common.environment.ApplicationUpdater;
 import net.smoofyuniverse.common.environment.DependencyInfo;
+import net.smoofyuniverse.common.environment.DependencyManager;
 import net.smoofyuniverse.common.environment.source.GithubReleaseSource;
 import net.smoofyuniverse.simplex.ui.UserInterface;
-
-import java.util.concurrent.Executors;
 
 public class Simplex extends Application {
 	public static final DependencyInfo FLOW_MATH = new DependencyInfo("com.flowpowered:flow-math:1.0.3", "https://repo1.maven.org/maven2/com/flowpowered/flow-math/1.0.3/flow-math-1.0.3.jar", 167837, "d98020239e5015091ad3be927cef9dea0d61a234", "sha1"),
@@ -41,23 +40,19 @@ public class Simplex extends Application {
 
 	@Override
 	public void init() {
-		requireUI();
-		initServices(Executors.newSingleThreadExecutor());
+		requireGUI();
+		initServices();
 
 		if (!this.devEnvironment) {
-			if (!updateDependencies(this.workingDir.resolve("libraries"), FLOW_MATH, FLOW_NOISE)) {
-				shutdown();
-				return;
-			}
-			loadDependencies(FLOW_MATH, FLOW_NOISE);
+			new DependencyManager(this, FLOW_MATH, FLOW_NOISE).setup();
 		}
 
-		App.runLater(() -> {
+		runLater(() -> {
 			initStage(1000, 900, "favicon.png");
 			setScene(new UserInterface()).show();
 		});
 
-		tryUpdateApplication(new GithubReleaseSource("Yeregorix", "Simplex", null, "Simplex"));
+		new ApplicationUpdater(this, new GithubReleaseSource("Yeregorix", "Simplex", null, "Simplex", getConnectionConfig())).run();
 	}
 
 	public static void main(String[] args) {

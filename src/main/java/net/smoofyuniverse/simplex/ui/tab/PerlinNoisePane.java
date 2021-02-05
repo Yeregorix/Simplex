@@ -30,12 +30,14 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import net.smoofyuniverse.common.app.App;
+import net.smoofyuniverse.common.app.Application;
+import net.smoofyuniverse.logger.core.Logger;
 import net.smoofyuniverse.simplex.ui.UserInterface;
 
 public class PerlinNoisePane extends StackPane {
-	private final UserInterface ui;
+	private static final Logger logger = Logger.get("PerlinNoisePane");
 
+	private final UserInterface ui;
 	private final ImageView view = new ImageView();
 
 	private final Perlin perlin = new Perlin();
@@ -108,7 +110,7 @@ public class PerlinNoisePane extends StackPane {
 	private class Task extends Thread {
 		@Override
 		public void run() {
-			while (!App.isShutdown()) {
+			while (Application.get().getState() != net.smoofyuniverse.common.app.State.SHUTDOWN) {
 				long start = System.currentTimeMillis();
 
 				if (isSelected()) {
@@ -123,7 +125,7 @@ public class PerlinNoisePane extends StackPane {
 					try {
 						Thread.sleep(70 - dur);
 					} catch (InterruptedException e) {
-						e.printStackTrace();
+						logger.error(e);
 					}
 				}
 			}

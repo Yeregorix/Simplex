@@ -25,7 +25,6 @@ package net.smoofyuniverse.simplex.generator;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import net.smoofyuniverse.common.app.App;
 import net.smoofyuniverse.common.task.IncrementalListener;
 import net.smoofyuniverse.logger.core.Logger;
 
@@ -33,7 +32,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
 public class MandelbrotSet {
-	private static final Logger logger = App.getLogger("MandelbrotSet");
+	private static final Logger logger = Logger.get("MandelbrotSet");
 	public final int threads;
 	public final double fromX, fromY;
 	public final double xScale, yScale;
@@ -121,7 +120,7 @@ public class MandelbrotSet {
 			try {
 				latch.await();
 			} catch (InterruptedException e) {
-				logger.error("Thread has been interrupted", e);
+				logger.error(e);
 			}
 		}
 	}
