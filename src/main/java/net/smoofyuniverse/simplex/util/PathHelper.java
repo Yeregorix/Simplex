@@ -23,9 +23,7 @@
 package net.smoofyuniverse.simplex.util;
 
 import javafx.scene.canvas.GraphicsContext;
-
-import static com.flowpowered.math.TrigMath.cos;
-import static com.flowpowered.math.TrigMath.sin;
+import org.spongepowered.math.TrigMath;
 
 public class PathHelper {
 	public final GraphicsContext graphics;
@@ -39,7 +37,8 @@ public class PathHelper {
 	}
 
 	public void move(double length, boolean draw) {
-		double newX = this.currentX + cos(this.currentDirection) * length, newY = this.currentY + sin(this.currentDirection) * length;
+		double newX = this.currentX + TrigMath.cos(this.currentDirection) * length,
+				newY = this.currentY + TrigMath.sin(this.currentDirection) * length;
 
 		if (draw && this.visible)
 			this.graphics.strokeLine(this.currentX, this.currentY, newX, newY);

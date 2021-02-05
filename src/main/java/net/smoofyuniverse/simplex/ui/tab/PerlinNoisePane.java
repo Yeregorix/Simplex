@@ -22,8 +22,6 @@
 
 package net.smoofyuniverse.simplex.ui.tab;
 
-import com.flowpowered.noise.NoiseQuality;
-import com.flowpowered.noise.module.source.Perlin;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
@@ -33,6 +31,8 @@ import javafx.scene.paint.Color;
 import net.smoofyuniverse.common.app.Application;
 import net.smoofyuniverse.logger.core.Logger;
 import net.smoofyuniverse.simplex.ui.UserInterface;
+import org.spongepowered.noise.NoiseQuality;
+import org.spongepowered.noise.module.source.Perlin;
 
 public class PerlinNoisePane extends StackPane {
 	private static final Logger logger = Logger.get("PerlinNoisePane");

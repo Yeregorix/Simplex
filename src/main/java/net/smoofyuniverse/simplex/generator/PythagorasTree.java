@@ -22,10 +22,10 @@
 
 package net.smoofyuniverse.simplex.generator;
 
-import com.flowpowered.math.TrigMath;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import net.smoofyuniverse.simplex.util.PathHelper;
+import org.spongepowered.math.TrigMath;
 
 public class PythagorasTree {
 	public static final double MIN_FACTOR = 0, MAX_FACTOR = 1;

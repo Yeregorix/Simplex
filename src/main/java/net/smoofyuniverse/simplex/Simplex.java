@@ -31,8 +31,8 @@ import net.smoofyuniverse.common.environment.source.GithubReleaseSource;
 import net.smoofyuniverse.simplex.ui.UserInterface;
 
 public class Simplex extends Application {
-	public static final DependencyInfo FLOW_MATH = new DependencyInfo("com.flowpowered:flow-math:1.0.3", "https://repo1.maven.org/maven2/com/flowpowered/flow-math/1.0.3/flow-math-1.0.3.jar", 167837, "d98020239e5015091ad3be927cef9dea0d61a234", "sha1"),
-			FLOW_NOISE = new DependencyInfo("com.flowpowered:flow-noise:1.0.1-SNAPSHOT", "https://repo.spongepowered.org/maven/com/flowpowered/flow-noise/1.0.1-SNAPSHOT/flow-noise-1.0.1-20150609.030116-1.jar", 68228, "bfddff85287441521fb66ec22b59a463190966e1", "sha1");
+	public static final DependencyInfo FLOW_MATH = new DependencyInfo("org.spongepowered:math:2.0.0-SNAPSHOT", "https://repo.spongepowered.org/repository/sponge-legacy/org/spongepowered/math/2.0.0-SNAPSHOT/math-2.0.0-20201013.013515-3.jar", 165471, "bdf567735a83ef1511f86078c1cf029c6e2b38bc", "sha1"),
+			FLOW_NOISE = new DependencyInfo("org.spongepowered:noise:2.0.0-SNAPSHOT", "https://repo.spongepowered.org/repository/sponge-legacy/org/spongepowered/noise/2.0.0-SNAPSHOT/noise-2.0.0-20190606.000239-1.jar", 55099, "7cdb48fa0c018537d272dc57da311138c5c1d6d3", "sha1");
 
 	public Simplex(Arguments args) {
 		super(args, "Simplex", "1.0.4");

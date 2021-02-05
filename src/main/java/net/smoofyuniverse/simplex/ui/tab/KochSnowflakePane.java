@@ -22,12 +22,12 @@
 
 package net.smoofyuniverse.simplex.ui.tab;
 
-import com.flowpowered.math.TrigMath;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import net.smoofyuniverse.simplex.util.PathHelper;
+import org.spongepowered.math.TrigMath;
 
 public class KochSnowflakePane extends StackPane {
 	public static final double PI_OVER_3 = TrigMath.PI / 3;
