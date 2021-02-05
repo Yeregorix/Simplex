@@ -33,17 +33,17 @@ import java.util.concurrent.ExecutorService;
 
 public class MandelbrotSet {
 	private static final Logger logger = Logger.get("MandelbrotSet");
-	public final int threads;
-	public final double fromX, fromY;
+	public final int blocks;
+	public final double minX, minY;
 	public final double xScale, yScale;
 	public final int maxIterations;
 	public final Color[] colors;
 	private final ExecutorService executor;
 
-	public MandelbrotSet(ExecutorService executor, int threads, double fromX, double fromY, double xScale, double yScale, int maxIterations) {
-		if (threads <= 0)
-			throw new IllegalArgumentException("threads");
-		if (executor == null && threads != 1)
+	public MandelbrotSet(ExecutorService executor, int blocks, double minX, double minY, double xScale, double yScale, int maxIterations) {
+		if (blocks <= 0)
+			throw new IllegalArgumentException("blocks");
+		if (executor == null)
 			throw new IllegalArgumentException("executor");
 		if (xScale == 0)
 			throw new IllegalArgumentException("xScale");
@@ -53,9 +53,9 @@ public class MandelbrotSet {
 			throw new IllegalArgumentException("maxIterations");
 
 		this.executor = executor;
-		this.threads = threads;
-		this.fromX = fromX;
-		this.fromY = fromY;
+		this.blocks = blocks;
+		this.minX = minX;
+		this.minY = minY;
 		this.xScale = xScale;
 		this.yScale = yScale;
 		this.maxIterations = maxIterations;
@@ -74,54 +74,43 @@ public class MandelbrotSet {
 	}
 
 	public void generate(PixelWriter writer, int width, int height, IncrementalListener listener) {
-		if (this.executor == null) {
-			for (int pX = 0; pX < width; pX++) {
-				double x = this.fromX + pX * this.xScale;
-				for (int pY = 0; pY < height; pY++) {
-					double y = this.fromY + pY * this.yScale;
+		CountDownLatch latch = new CountDownLatch(this.blocks);
+		int size = width * height;
+		int blockSize = (int) Math.ceil(size / (double) this.blocks);
 
-					if (listener.isCancelled())
-						return;
+		for (int i = 0; i < this.blocks; i++) {
+			if (listener.isCancelled())
+				return;
 
-					writer.setColor(pX, pY, this.colors[getIterations(x, y) - 1]);
-					listener.increment(1);
-				}
-			}
-		} else {
-			CountDownLatch latch = new CountDownLatch(this.threads);
-			int partialWidth = width / this.threads;
+			int blockMin = blockSize * i;
+			this.executor.execute(() -> {
+				try {
+					int blockMax = blockMin + blockSize;
+					if (blockMax > size)
+						blockMax = size;
 
-			for (int i = 0; i < this.threads; i++) {
-				if (listener.isCancelled())
-					return;
+					for (int p = blockMin; p < blockMax; p++) {
+						if (listener.isCancelled())
+							return;
 
-				int offset = partialWidth * i;
+						int pX = p % width, pY = p / width;
 
-				this.executor.execute(() -> {
-					try {
-						for (int pX = 0; pX < partialWidth; pX++) {
-							double x = this.fromX + (offset + pX) * this.xScale;
-							for (int pY = 0; pY < height; pY++) {
-								double y = this.fromY + pY * this.yScale;
+						double x = this.minX + pX * this.xScale;
+						double y = this.minY + pY * this.yScale;
 
-								if (listener.isCancelled())
-									return;
-
-								writer.setColor(offset + pX, pY, this.colors[getIterations(x, y) - 1]);
-								listener.increment(1);
-							}
-						}
-					} finally {
-						latch.countDown();
+						writer.setColor(pX, pY, this.colors[getIterations(x, y) - 1]);
+						listener.increment(1);
 					}
-				});
-			}
+				} finally {
+					latch.countDown();
+				}
+			});
+		}
 
-			try {
-				latch.await();
-			} catch (InterruptedException e) {
-				logger.error(e);
-			}
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			logger.error(e);
 		}
 	}
 

@@ -48,14 +48,14 @@ import java.util.concurrent.Executors;
 
 public class MandelbrotSetPane extends GridPane {
 	private static final Logger logger = Logger.get("MandelbrotSetPane");
-	private final ExecutorService executor = Executors.newCachedThreadPool();
+	private final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 	private final AutoCancellingSupplier<ObservableProgressTask> taskSupplier = new AutoCancellingSupplier<>(ObservableProgressTask::new);
 	private final ImageView view = new ImageView();
 	private final ProgressBar progressBar = new ProgressBar();
 	private final DoubleField centerX = new DoubleField(-0.75), centerY = new DoubleField(0);
 	private final DoubleField scale = new DoubleField(0, 0.1, 0.005);
 	private final IntegerField iterations = new IntegerField(1, 50000, 100);
-	private final IntegerField threads = new IntegerField(1, 4);
+	private final IntegerField blocks = new IntegerField(1, Integer.MAX_VALUE, 100);
 	private final Button colorModeB = new Button("Linéaire");
 	private int colorMode = 0;
 	private volatile boolean zooming;
@@ -117,7 +117,7 @@ public class MandelbrotSetPane extends GridPane {
 
 		addRow(2, new Label("Centre X:"), this.centerX, new Label("Centre Y:"), this.centerY);
 		addRow(3, new Label("Echelle:"), this.scale, new Label("Itérations:"), this.iterations);
-		addRow(4, new Label("Threads:"), this.threads, new Label("Coloration:"), this.colorModeB);
+		addRow(4, new Label("Blocs:"), this.blocks, new Label("Coloration:"), this.colorModeB);
 
 		getColumnConstraints().addAll(GridUtil.createColumn(15), GridUtil.createColumn(35), GridUtil.createColumn(15), GridUtil.createColumn(35));
 		getRowConstraints().addAll(GridUtil.createRow(Priority.ALWAYS), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow());
@@ -134,8 +134,7 @@ public class MandelbrotSetPane extends GridPane {
 		if (scale == 0)
 			return;
 
-		int threads = this.threads.getValue();
-		MandelbrotSet set = new MandelbrotSet(threads == 1 ? null : this.executor, threads, this.centerX.getValue() - 350 * scale, this.centerY.getValue() - 350 * scale, scale, scale, this.iterations.getValue());
+		MandelbrotSet set = new MandelbrotSet(this.executor, this.blocks.getValue(), this.centerX.getValue() - 350 * scale, this.centerY.getValue() - 350 * scale, scale, scale, this.iterations.getValue());
 
 		// Custom color mapping
 		if (this.colorMode == 1) {
