@@ -75,8 +75,8 @@ public class PythagorasTreePane extends GridPane {
 		addRow(3, initialWidthL, this.initialWidth, initialLengthL, this.initialLength);
 		addRow(4, levelL, this.level);
 
-		getColumnConstraints().addAll(GridUtil.createColumn(15), GridUtil.createColumn(35), GridUtil.createColumn(15), GridUtil.createColumn(35));
-		getRowConstraints().addAll(GridUtil.createRow(Priority.ALWAYS), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow());
+		getColumnConstraints().addAll(GridUtil.column(15), GridUtil.column(35), GridUtil.column(15), GridUtil.column(35));
+		getRowConstraints().addAll(GridUtil.row(Priority.ALWAYS), GridUtil.row(), GridUtil.row(), GridUtil.row(), GridUtil.row());
 
 		setVgap(5);
 		setHgap(5);

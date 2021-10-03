@@ -38,16 +38,17 @@ import net.smoofyuniverse.common.app.State;
 import net.smoofyuniverse.common.fx.field.DoubleField;
 import net.smoofyuniverse.common.fx.field.IntegerField;
 import net.smoofyuniverse.common.fx.task.ObservableProgressTask;
+import net.smoofyuniverse.common.logger.ApplicationLogger;
 import net.smoofyuniverse.common.task.supplier.AutoCancellingSupplier;
 import net.smoofyuniverse.common.util.GridUtil;
-import net.smoofyuniverse.logger.core.Logger;
 import net.smoofyuniverse.simplex.generator.MandelbrotSet;
+import org.slf4j.Logger;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MandelbrotSetPane extends GridPane {
-	private static final Logger logger = Logger.get("MandelbrotSetPane");
+	private static final Logger logger = ApplicationLogger.get(MandelbrotSetPane.class);
 	private final ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 	private final AutoCancellingSupplier<ObservableProgressTask> taskSupplier = new AutoCancellingSupplier<>(ObservableProgressTask::new);
 	private final ImageView view = new ImageView();
@@ -119,8 +120,8 @@ public class MandelbrotSetPane extends GridPane {
 		addRow(3, new Label("Echelle:"), this.scale, new Label("Itérations:"), this.iterations);
 		addRow(4, new Label("Blocs:"), this.blocks, new Label("Coloration:"), this.colorModeB);
 
-		getColumnConstraints().addAll(GridUtil.createColumn(15), GridUtil.createColumn(35), GridUtil.createColumn(15), GridUtil.createColumn(35));
-		getRowConstraints().addAll(GridUtil.createRow(Priority.ALWAYS), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow(), GridUtil.createRow());
+		getColumnConstraints().addAll(GridUtil.column(15), GridUtil.column(35), GridUtil.column(15), GridUtil.column(35));
+		getRowConstraints().addAll(GridUtil.row(Priority.ALWAYS), GridUtil.row(), GridUtil.row(), GridUtil.row(), GridUtil.row());
 
 		setVgap(5);
 		setHgap(5);

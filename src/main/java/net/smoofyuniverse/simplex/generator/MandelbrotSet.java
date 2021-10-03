@@ -25,14 +25,15 @@ package net.smoofyuniverse.simplex.generator;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import net.smoofyuniverse.common.logger.ApplicationLogger;
 import net.smoofyuniverse.common.task.IncrementalListener;
-import net.smoofyuniverse.logger.core.Logger;
+import org.slf4j.Logger;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
 public class MandelbrotSet {
-	private static final Logger logger = Logger.get("MandelbrotSet");
+	private static final Logger logger = ApplicationLogger.get(MandelbrotSet.class);
 	public final int blocks;
 	public final double minX, minY;
 	public final double xScale, yScale;
@@ -110,7 +111,7 @@ public class MandelbrotSet {
 		try {
 			latch.await();
 		} catch (InterruptedException e) {
-			logger.error(e);
+			logger.error("Interruption", e);
 		}
 	}
 

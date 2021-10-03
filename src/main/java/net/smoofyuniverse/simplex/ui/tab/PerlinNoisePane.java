@@ -28,14 +28,15 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import net.smoofyuniverse.common.app.Application;
-import net.smoofyuniverse.logger.core.Logger;
+import net.smoofyuniverse.common.app.ApplicationManager;
+import net.smoofyuniverse.common.logger.ApplicationLogger;
 import net.smoofyuniverse.simplex.ui.UserInterface;
+import org.slf4j.Logger;
 import org.spongepowered.noise.NoiseQuality;
 import org.spongepowered.noise.module.source.Perlin;
 
 public class PerlinNoisePane extends StackPane {
-	private static final Logger logger = Logger.get("PerlinNoisePane");
+	private static final Logger logger = ApplicationLogger.get(PerlinNoisePane.class);
 
 	private final UserInterface ui;
 	private final ImageView view = new ImageView();
@@ -110,7 +111,7 @@ public class PerlinNoisePane extends StackPane {
 	private class Task extends Thread {
 		@Override
 		public void run() {
-			while (Application.get().getState() != net.smoofyuniverse.common.app.State.SHUTDOWN) {
+			while (ApplicationManager.get().getState() != net.smoofyuniverse.common.app.State.SHUTDOWN) {
 				long start = System.currentTimeMillis();
 
 				if (isSelected()) {
@@ -125,7 +126,7 @@ public class PerlinNoisePane extends StackPane {
 					try {
 						Thread.sleep(70 - dur);
 					} catch (InterruptedException e) {
-						logger.error(e);
+						logger.error("Interruption", e);
 					}
 				}
 			}

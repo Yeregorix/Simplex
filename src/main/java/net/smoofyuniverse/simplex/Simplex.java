@@ -22,40 +22,24 @@
 
 package net.smoofyuniverse.simplex;
 
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import net.smoofyuniverse.common.app.Application;
-import net.smoofyuniverse.common.app.Arguments;
-import net.smoofyuniverse.common.environment.ApplicationUpdater;
-import net.smoofyuniverse.common.environment.DependencyInfo;
-import net.smoofyuniverse.common.environment.DependencyManager;
-import net.smoofyuniverse.common.environment.source.GithubReleaseSource;
+import net.smoofyuniverse.common.environment.source.GitHubReleaseSource;
 import net.smoofyuniverse.simplex.ui.UserInterface;
 
 public class Simplex extends Application {
-	public static final DependencyInfo FLOW_MATH = new DependencyInfo("org.spongepowered:math:2.0.0-SNAPSHOT", "https://repo.spongepowered.org/repository/sponge-legacy/org/spongepowered/math/2.0.0-SNAPSHOT/math-2.0.0-20201013.013515-3.jar", 165471, "bdf567735a83ef1511f86078c1cf029c6e2b38bc", "sha1"),
-			FLOW_NOISE = new DependencyInfo("org.spongepowered:noise:2.0.0-SNAPSHOT", "https://repo.spongepowered.org/repository/sponge-legacy/org/spongepowered/noise/2.0.0-SNAPSHOT/noise-2.0.0-20190606.000239-1.jar", 55099, "7cdb48fa0c018537d272dc57da311138c5c1d6d3", "sha1");
-
-	public Simplex(Arguments args) {
-		super(args, "Simplex", "1.0.4");
-	}
 
 	@Override
-	public void init() {
-		requireGUI();
-		initServices();
-
-		if (!this.devEnvironment) {
-			new DependencyManager(this, FLOW_MATH, FLOW_NOISE).setup();
-		}
-
+	public void run() {
 		runLater(() -> {
-			initStage(1000, 900, "favicon.png");
-			setScene(new UserInterface()).show();
+			Stage stage = createStage(1000, 900, "favicon.png");
+			setStage(stage);
+
+			stage.setScene(new Scene(new UserInterface()));
+			stage.show();
 		});
 
-		new ApplicationUpdater(this, new GithubReleaseSource("Yeregorix", "Simplex", null, "Simplex", getConnectionConfig())).run();
-	}
-
-	public static void main(String[] args) {
-		new Simplex(Arguments.parse(args)).launch();
+		getManager().runUpdater(new GitHubReleaseSource("Yeregorix", "Simplex", null, "Simplex", getManager().getConnectionConfig()));
 	}
 }
