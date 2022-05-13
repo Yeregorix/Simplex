@@ -87,7 +87,7 @@ public class PerlinNoisePane extends StackPane {
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				double value = perlin.getValue(x, y, t);
+				double value = perlin.get(x, y, t);
 
 				if (value > max)
 					max = value;
